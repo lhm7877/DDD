@@ -5,4 +5,6 @@ package com.hoomin.myshop;
  * @date : 2019-02-20
  */
 public class ShippingInfo {
+    private String receiverName;
+    private String reveiverPhoneNumber;
 }

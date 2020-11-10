@@ -6,9 +6,9 @@ package com.hoomin.myshop;
  */
 public class ShopApplication {
     public static void main(String... args){
-        Order order = new Order();
-        ShippingInfo shippingInfo = new ShippingInfo();
-        order.changeShippingInfo(shippingInfo);
+//        Order order = new Order();
+//        ShippingInfo shippingInfo = new ShippingInfo();
+//        order.changeShippingInfo(shippingInfo);
 
     }
 }

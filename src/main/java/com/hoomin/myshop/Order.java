@@ -1,5 +1,9 @@
 package com.hoomin.myshop;
 
+import org.apache.commons.collections4.CollectionUtils;
+
+import java.util.List;
+
 /**
  * @author : lhm0805
  * @date : 2019-02-20
@@ -7,8 +11,31 @@ package com.hoomin.myshop;
 public class Order {
     private OrderState state;
     private ShippingInfo shippingInfo;
+    private List<OrderLine> orderLines;
+    private Money totalAmounts;
 
-    public void changeShippingInfo(ShippingInfo newShippingInfo){
+    public Order(List<OrderLine> orderLines) {
+        setOrderLines(orderLines);
+    }
+
+    private void setOrderLines(List<OrderLine> orderLines) {
+        verifyAtLeastOneOrMoreOrderLines(orderLines);
+        this.orderLines = orderLines;
+        calculateTotalAmounts();
+    }
+
+    private void verifyAtLeastOneOrMoreOrderLines(List<OrderLine> orderLines) {
+        if (CollectionUtils.isEmpty(orderLines)) {
+            throw new IllegalArgumentException("no OrderLine");
+        }
+    }
+
+    private void calculateTotalAmounts(){
+        this.totalAmounts = new Money(orderLines.stream()
+                .mapToInt(OrderLine::getAmounts).sum());
+    }
+
+    public void changeShippingInfo(ShippingInfo newShippingInfo) {
         if (!isShippingChangeable()) {
             throw new IllegalStateException("can't change shipping in" + state);
         }
